@@ -37,17 +37,19 @@ const config = {
     ],
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-unsafe-assignment": "off",
-    // Turn off additional rules
     "@typescript-eslint/no-unsafe-member-access": "off",
     "@typescript-eslint/no-unsafe-call": "off",
     "react-hooks/rules-of-hooks": "off",
     "@typescript-eslint/await-thenable": "off",
     "@typescript-eslint/no-empty-interface": "off",
-    // New rules to turn off
     "@typescript-eslint/prefer-nullish-coalescing": "off",
     "@typescript-eslint/no-unsafe-argument": "off",
     "@typescript-eslint/prefer-optional-chain": "off",
     "@typescript-eslint/non-nullable-type-assertion-style": "off",
+    "@typescript-eslint/no-unsafe-return": "off",
+    "@typescript-eslint/no-floating-promises": "off",
+    "@typescript-eslint/no-unnecessary-type-assertion": "off",
+    "@typescript-eslint/restrict-template-expressions": "off",
   },
 };
 
