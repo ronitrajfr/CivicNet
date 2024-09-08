@@ -27,13 +27,17 @@ const page = ({ params }: any) => {
 
   // Fetch data from the API endpoint when the component mounts
   useEffect(() => {
-    const fetchData = () => {
-      fetch("/api/admin")
-        .then((response) => response.json())
-        .then((data) => setResult(data))
-        .catch((error) =>
-          console.error("An error occurred while fetching data:", error),
-        );
+    const fetchData = async () => {
+      try {
+        const response = await fetch("/api/admin");
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
+        setResult(data);
+      } catch (error) {
+        console.error("An error occurred while fetching data:", error);
+      }
     };
 
     fetchData();
@@ -42,24 +46,19 @@ const page = ({ params }: any) => {
   // Function to handle the resolution of complaints
   const updateResults = async (id: string) => {
     // Optimistically update the UI
-    setResult((prevResults) =>
-      prevResults.filter((complaint) => complaint.id !== id),
-    );
+    try {
+      setResult((prevResults) =>
+        prevResults.filter((complaint) => complaint.id !== id),
+      );
 
-    const response = await fetch(`/api/admin?complaintId=${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    if (!response.ok) {
-      console.error("Failed to update the complaint.");
-      // Revert the UI change in case of an error
-      setResult((prevResults) => [
-        ...prevResults,
-        result.find((c) => c.id === id),
-      ]);
+      const response = await fetch(`/api/admin?complaintId=${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+    } catch (error) {
+      console.error("An error occurred while updating the complaint:", error);
     }
   };
 
